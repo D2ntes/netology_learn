@@ -20,35 +20,45 @@
 def input_command():
     operation_dict = {'+': polish_sum, '-': polish_sub, '*': polish_mul, '/': polish_div}
     help()
+    calc_list = input('Введите выражение:').split()
+    assert calc_list[0] in operation_dict.keys(), 'Первый символ - одна из доступных операций: +, -, *, /'
+
     try:
-        calc_list = input('Введите выражение:').split()
-        # int(*calc_list[1:3])
-        assert calc_list[0] in operation_dict.keys(), 'Первый символ - одна из доступных операций: +, -, *, /'
+        int(calc_list[1])
+        int(calc_list[2])
+        if int(calc_list[1]) < 0 or int(calc_list[2]) < 0:
+            raise ValueError
 
-    except:
-        help()
+    except ValueError:
+        input_command()
 
-    operation_dict.get(calc_list[0])(*calc_list[1:3])
+    try:
+        operation_dict.get(calc_list[0])(*calc_list[1:])
+    except TypeError:
+        input_command()
 
 
-def polish_sum(x,y):
+def polish_sum(x, y):
     print('Сумма равна {}'.format(int(x) + int(y)))
 
-def polish_sub(x,y):
+
+def polish_sub(x, y):
     print('Разность равна {}'.format(int(x) - int(y)))
 
-def polish_mul(x,y):
+
+def polish_mul(x, y):
     print('Произведение равно {}'.format(int(x) * int(y)))
 
-def polish_div(x,y):
+
+def polish_div(x, y):
     try:
         print('Частное равно {}'.format(int(x) / int(y)))
     except ZeroDivisionError:
         print('Деление на ноль!')
 
-def help():
-    print('После оператора введите два числа через пробел')
 
+def help():
+    print('После оператора введите два неотрицацельных числа через пробел')
 
 
 input_command()
