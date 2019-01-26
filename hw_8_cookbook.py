@@ -35,6 +35,7 @@
 #     ]
 #   }
 
+
 def load_book_from_file(book_file='cookbook.txt'):
     with open(book_file) as book:
         cook_dict = dict()
@@ -73,6 +74,7 @@ def load_book_from_file(book_file='cookbook.txt'):
 #   'Чеснок': {'measure': 'зубч', 'quantity': 6}
 # }
 # Обратите внимание, что ингредиенты могут повторяться
+
 
 def get_shop_list_by_dishes(*args):
     # Создаём переменные для названий блюд и кол-ва персон
