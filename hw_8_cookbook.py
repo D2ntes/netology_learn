@@ -141,4 +141,4 @@ def choice_of_dishes(book):
     return dishes, person, book
 
 
-get_shop_list_by_dishes(choice_of_dishes(load_book_from_file('cookbook.txt')))
+get_shop_list_by_dishes(choice_of_dishes(load_book_from_file()))
