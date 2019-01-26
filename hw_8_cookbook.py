@@ -56,8 +56,8 @@ def load_book_from_file(book_file='cookbook.txt'):
 
 
 # Задача №2
-# Нужно написать функцию, которая на вход принимает список блюд из cook_book и количество персон для кого мы будем готовить
-#
+# Нужно написать функцию, которая на вход принимает список блюд из cook_book
+# и количество персон для кого мы будем готовить
 # get_shop_list_by_dishes(dishes, person_count)
 # На выходе мы должны получить словарь с названием ингредиентов и его количетсва для блюда. Например, для такого вызова
 #
@@ -75,29 +75,32 @@ def load_book_from_file(book_file='cookbook.txt'):
 # Обратите внимание, что ингредиенты могут повторяться
 
 def get_shop_list_by_dishes(*args):
+    # Создаём переменные для названий блюд и кол-ва персон
     dishes = args[0][0]
     person_count = int(args[-1][-1])
 
     ingridients_diner_dict = {}
 
-    for dish in dishes:
-        for ingridient in cook_book[dish]:
+    for dish in dishes:  # Перечисляем все блюда в книге
+        for ingridient in cook_book[dish]:  # Перечисляем все индигриенты в блюде
 
-            if ingridient['ingridient_name'] in ingridients_diner_dict:
+            if ingridient['ingridient_name'] in ingridients_diner_dict:  # При совпедении индигрента, добавляем кол-во
                 ingridients_diner_dict[ingridient['ingridient_name']]['quantity'] += ingridient[
                                                                                          'quantity'] * person_count
 
+            # Добавляем индигрент и количество(с ед. изм.) в словарь, с учетом кол-ва персон
             ingridients_diner_dict.setdefault(ingridient['ingridient_name'],
                                               {'measure': ingridient['measure'],
                                                'quantity': ingridient['quantity'] * person_count})
 
+    # Выводим кол-во требуемых индигриентов
     print(f"Для приготовления блюд: {', '.join(dishes)}\n"
           f"Количество персон: {person_count}\n"
           f"Потреюуется:"
           )
-    for ingridient in ingridients_diner_dict:
-        print(f"{ingridient} | {ingridients_diner_dict[ingridient]['quantity']} " 
-        f"{ingridients_diner_dict[ingridient]['measure']}")
+    for ingridient in ingridients_diner_dict:  #
+        print(f"{ingridient} | {ingridients_diner_dict[ingridient]['quantity']} "
+              f"{ingridients_diner_dict[ingridient]['measure']}")
 
 
 def choice_of_dishes(book):
@@ -105,28 +108,29 @@ def choice_of_dishes(book):
     menu = dict()
     dishes = []
     print('Кулинарная книга\nСодержание:')
-    for dish in book:
+    for dish in book:  # Выводим нумерованный список блюд и создаем словарь для цифрового ввода блюд
         i += 1
         menu.setdefault(str(i), dish)
         print(f'{i}. {dish}')
 
     try:
+        # Ввод номера блюд из существующих и кол-во персон
         number_dishes = list(input(f'Введите номера блюд(через пробелы от 1 до {i}): ').split())
         person = input("На сколько персон? ")
 
         for numer_dish in number_dishes:
             dishes.append(menu[numer_dish])
 
-    except TypeError:
+    except TypeError:  # Проверяем правильность ввода типа данных
         print("!!!Cледует ввести номер блюд и кол-во персон цифрами!!!")
         get_shop_list_by_dishes(choice_of_dishes(cook_book))
 
-    except KeyError:
+    except KeyError:  # Проверяем правильность ввода указателей на блюда
         print("!!!Блюда под таким номером в книге нет!!!")
         get_shop_list_by_dishes(choice_of_dishes(cook_book))
 
     return (dishes, person)
 
 
-cook_book = load_book_from_file('cookbook.txt')
+cook_book = load_book_from_file('cookbook.txt')  # Читаем и преобразуем в заданный словарь из файла
 get_shop_list_by_dishes(choice_of_dishes(cook_book))
