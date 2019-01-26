@@ -37,22 +37,26 @@
 
 
 def load_book_from_file(book_file='cookbook.txt'):
+    # Читаем и преобразуем данные в заданный словарь из файла
     with open(book_file) as book:
         cook_dict = dict()
         key_ingridient_dict = ['ingridient_name', 'quantity', 'measure']
-        book.seek(0, 2)
+
+        book.seek(0, 2)  # Определяем конец файла и возвращаем указатель в начало файла
         eof = book.tell()
         book.seek(0, 0)
-        while book.tell() != eof:
+
+        while book.tell() != eof:  # Проверяем конец файла
             ingridient_list = []
-            key = book.readline().strip()
+            key = book.readline().strip() # Наименование блюда
+
             for ingridient in range(int(book.readline().strip())):
                 value_ingridient_dict = book.readline().strip().split(' | ')
                 value_ingridient_dict[1] = int(value_ingridient_dict[1])
                 ingridient_list.append(dict(zip(key_ingridient_dict, value_ingridient_dict)))
-                # print(value_ingridient_dict)
             cook_dict.setdefault(key, ingridient_list)
             book.readline()
+
     return cook_dict
 
 
@@ -76,10 +80,10 @@ def load_book_from_file(book_file='cookbook.txt'):
 # Обратите внимание, что ингредиенты могут повторяться
 
 
-def get_shop_list_by_dishes(*args):
-    # Создаём переменные для названий блюд и кол-ва персон
-    dishes = args[0][0]
-    person_count = int(args[-1][-1])
+def get_shop_list_by_dishes(args):
+    dishes = args[0]
+    person_count = args[1]
+    cook_book = args[-1]
 
     ingridients_diner_dict = {}
 
@@ -118,21 +122,25 @@ def choice_of_dishes(book):
     try:
         # Ввод номера блюд из существующих и кол-во персон
         number_dishes = list(input(f'Введите номера блюд(через пробелы от 1 до {i}): ').split())
-        person = input("На сколько персон? ")
+        person = int(input("На сколько персон? "))
 
-        for numer_dish in number_dishes:
+        for numer_dish in number_dishes:  # Добавляем блюда по цифровым указателям
             dishes.append(menu[numer_dish])
 
     except TypeError:  # Проверяем правильность ввода типа данных
         print("!!!Cледует ввести номер блюд и кол-во персон цифрами!!!")
-        get_shop_list_by_dishes(choice_of_dishes(cook_book))
+        get_shop_list_by_dishes(choice_of_dishes(book))
 
     except KeyError:  # Проверяем правильность ввода указателей на блюда
         print("!!!Блюда под таким номером в книге нет!!!")
-        get_shop_list_by_dishes(choice_of_dishes(cook_book))
+        get_shop_list_by_dishes(choice_of_dishes(book))
+    except ValueError:  # Проверяем правильность ввода количества персон
+        print("!!!Введите количество персон цифрами!!!")
+        get_shop_list_by_dishes(choice_of_dishes(book))
 
-    return (dishes, person)
+    return dishes, person, book
 
 
-cook_book = load_book_from_file('cookbook.txt')  # Читаем и преобразуем в заданный словарь из файла
-get_shop_list_by_dishes(choice_of_dishes(cook_book))
+
+
+get_shop_list_by_dishes(choice_of_dishes(load_book_from_file('cookbook.txt')))
