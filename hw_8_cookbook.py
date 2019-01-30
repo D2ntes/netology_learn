@@ -56,6 +56,7 @@ def load_book_from_file(book_file='cookbook.txt'):
                 ingridient_list.append(dict(zip(key_ingridient_dict, value_ingridient_dict)))
             cook_dict.setdefault(key, ingridient_list)
             book.readline()
+    #print(cook_dict)
 
     return cook_dict
 
@@ -113,30 +114,36 @@ def choice_of_dishes(book):
     i = 0
     menu = dict()
     dishes = []
+    person = 0
     print('Кулинарная книга\nСодержание:')
     for dish in book:  # Выводим нумерованный список блюд и создаем словарь для цифрового ввода блюд
         i += 1
         menu.setdefault(str(i), dish)
         print(f'{i}. {dish}')
 
-    try:
-        # Ввод номера блюд из существующих и кол-во персон
-        number_dishes = list(input(f'Введите номера блюд(через пробелы от 1 до {i}): ').split())
-        person = int(input("На сколько персон? "))
+    while True:
+        try:
+            # Ввод номера блюд из существующих и кол-во персон
+            number_dishes = list(input(f'Введите номера блюд(через пробелы от 1 до {i}): ').split())
+        except TypeError:  # Проверяем правильность ввода типа данных
+            print("!!!Cледует ввести номер блюд  цифрами!!!")
 
-        for numer_dish in number_dishes:  # Добавляем блюда по цифровым указателям
-            dishes.append(menu[numer_dish])
+        try:
+            person = int(input("На сколько персон? "))
+        except TypeError:  # Проверяем правильность ввода типа данных
+            print("!!!Cледует ввести кол-во персон цифрами!!!")
+        except ValueError:
+            print("!!!Cледует ввести кол-во персон цифрами!!!")
 
-    except TypeError:  # Проверяем правильность ввода типа данных
-        print("!!!Cледует ввести номер блюд и кол-во персон цифрами!!!")
-        get_shop_list_by_dishes(choice_of_dishes(book))
+        try:
+            for numer_dish in number_dishes:  # Добавляем блюда по цифровым указателям
+                dishes.append(menu[numer_dish])
+        except KeyError:  # Проверяем правильность ввода указателей на блюда
+            print("!!!Блюда под таким номером в книге нет!!!")
+        else:
+            break
 
-    except KeyError:  # Проверяем правильность ввода указателей на блюда
-        print("!!!Блюда под таким номером в книге нет!!!")
-        get_shop_list_by_dishes(choice_of_dishes(book))
-    except ValueError:  # Проверяем правильность ввода количества персон
-        print("!!!Введите количество персон цифрами!!!")
-        get_shop_list_by_dishes(choice_of_dishes(book))
+
 
     return dishes, person, book
 
