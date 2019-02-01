@@ -6,6 +6,7 @@ def word_max_count_10(words):
     words_len = (list(filter(lambda x: len(x) > 6, words)))
     return sorted(set(words_len), key=lambda word: (-words_len.count(word), word))[:10]
 
+
 def words_from_xml(file="newsafr.xml"):
     tree = ET.parse(file)
     root = tree.getroot()
@@ -14,6 +15,7 @@ def words_from_xml(file="newsafr.xml"):
     for xmli in xml_items:
         words.append(xmli.text.lower().split())
     return sum(words, [])
+
 
 def words_from_json(file="newsafr.json"):
     with open(file, encoding='utf-8') as datafile:
@@ -25,6 +27,5 @@ def words_from_json(file="newsafr.json"):
     return sum(words, [])
 
 
-print('Данные из xml-файла:',*word_max_count_10(words_from_xml()), sep='\n')
-print('Данные из json-файла:',*word_max_count_10(words_from_json()), sep='\n')
-
+print('Данные из xml-файла:', *word_max_count_10(words_from_xml()), sep='\n')
+print('Данные из json-файла:', *word_max_count_10(words_from_json()), sep='\n')
