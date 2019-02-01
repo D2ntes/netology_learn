@@ -12,8 +12,8 @@ def words_from_xml(file="newsafr.xml"):
     root = tree.getroot()
     xml_items = root.findall("./channel/item/description")
     words = []
-    for xmli in xml_items:
-        words.append(xmli.text.lower().split())
+    for description in xml_items:
+        words.append(description.text.lower().split())
     return sum(words, [])
 
 
