@@ -29,11 +29,11 @@ class User:
         # print(response.json())
 
         if str(response.status_code) == '200':
-            for one_friend in response.json()['response']:
+            for friend in response.json()['response']:
                 # print(one_friend)
-                mutual_friends_list.append(User(one_friend))
+                mutual_friends_list.append(User(friend))
         else:
-            print('Ошибка.')
+            print('Ошибка в запросе.')
             # print(response.json())
         return mutual_friends_list
 
