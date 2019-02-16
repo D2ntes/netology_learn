@@ -73,9 +73,7 @@ class User:
         if errors:
             tqdm.write(f'Данные от {errors} пользователей не получены.\n', file=sys.stdout)
 
-
         return set(communities)
-
 
     def find_similar_communities(self):
         print('Получаем общие id групп')
