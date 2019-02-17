@@ -102,13 +102,13 @@ class User:
         self.communties_info(self.unique_groups)
 
     def call_api(self, method, other_params):
-        time.sleep(0.5)
+        time.sleep(0.4)
         url = 'https://api.vk.com/method/'
         method = method
         params = {'v': self.v, 'access_token': self.token}
         params.update(other_params)
         try:
-            response = requests.get(url + method, params)
+            response = requests.get(url + method, params, timeout=20)
             response = response.json()['response']
         except Exception:
             pass
