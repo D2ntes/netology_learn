@@ -34,7 +34,7 @@
 #     {'ingridient_name': 'Сыр гауда', 'quantity': 100, 'measure': 'г'},
 #     ]
 #   }
-
+from pprint import pprint
 
 def load_book_from_file(book_file='cookbook.txt'):
     # Читаем и преобразуем данные в заданный словарь из файла
@@ -56,7 +56,7 @@ def load_book_from_file(book_file='cookbook.txt'):
                 ingridient_list.append(dict(zip(key_ingridient_dict, value_ingridient_dict)))
             cook_dict.setdefault(key, ingridient_list)
             book.readline()
-    #print(cook_dict)
+    pprint(cook_dict)
 
     return cook_dict
 
