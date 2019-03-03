@@ -18,6 +18,7 @@ def hash_lines(filename):
     except FileNotFoundError as text_error:
         print(text_error)
 
+
 if __name__ == '__main__':
     for number, hash_line in enumerate(hash_lines(input('Введите путь к файлу: ')), 1):
         print(f'{number}: {hash_line}')
