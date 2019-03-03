@@ -40,5 +40,5 @@ if __name__ == '__main__':
     b = ['asd\n', '23423,', 'sdfsd']
     c = {'g': 'sdfsdfsd', 'k': '34534'}
     with open('output2.txt','w') as file_txt:
-        adv_print(a, *b, c, max_line=0, sep='', start='sdf', end='!!!!', file=file_txt)
+        adv_print(a, *b, c, max_line=0, sep='', start='sdf', end='!!!!',in_file=True)
 
