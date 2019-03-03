@@ -19,14 +19,7 @@ def from_json(file="countries.json"):
 
 def save_to_file(data, file="url_wiki_countries.txt"):
     with open(file, 'w', encoding='utf-8') as datafile:
-        datafile.write('\n'.join(data))
-
-
-def append_urls_to_list(names):
-    countries_urls = []
-    for pair in names:
-        countries_urls.append(pair)
-    return countries_urls
+        datafile.write(f'{data}')
 
 
 class UrlWiki:
@@ -55,9 +48,7 @@ class UrlWiki:
 
 if __name__ == '__main__':
     save_to_file(
-        append_urls_to_list(
-            UrlWiki(
-                from_json()
-            )
+        UrlWiki(
+            from_json()
         )
     )
