@@ -25,6 +25,7 @@ def adv_print(*args, **kwargs):
     in_file = kwargs.get('in_file', '')
     file = kwargs.get('file', '')
     string = sep.join([str(arg) for arg in args]) + end
+
     if max_line:
         string = split_max_line(string, max_line)
     if file:
@@ -39,6 +40,6 @@ if __name__ == '__main__':
     a = 234233333333334444444444444444444333333333333333333333333333333333333333333333333333333333333333333333333333333
     b = ['asd\n', '23423,', 'sdfsd']
     c = {'g': 'sdfsdfsd', 'k': '34534'}
-    with open('output2.txt','w') as file_txt:
-        adv_print(a, *b, c, max_line=0, sep='', start='sdf', end='!!!!',in_file=True)
+
+    adv_print(a, *b, c, max_line=60, sep='', start='sdf', end='!!!!', in_file=True)
 
