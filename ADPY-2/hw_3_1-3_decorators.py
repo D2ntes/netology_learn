@@ -13,28 +13,28 @@ import hashlib
 import logging
 import os
 
+def parametrized(path_log):
 
-def with_logging(func):
-    path_log = f"log\\"
+    def with_logging(func):
 
-    def wrap_log(*args, **kwargs):
-        nonlocal path_log
+        def wrap_log(*args, **kwargs):
+            nonlocal path_log
+            try:
+                os.mkdir(path_log)
+            except OSError:
+                pass
+            name = func.__name__
+            logging.basicConfig(filename=os.path.join(path_log, f'log.txt'), level=logging.INFO)
+            result = func(*args, **kwargs)
+            logging.info(f'{datetime.datetime.now().replace(microsecond=0)} Вызов функции: {name}, Результат: {result}\n')
+            return func(*args, **kwargs)
 
-        try:
-            os.mkdir(path_log)
-        except OSError:
-            pass
+        return wrap_log
 
-        name = func.__name__
-        logging.basicConfig(filename=os.path.join(path_log, f'log.txt'), level=logging.INFO)
-        result = func(*args, **kwargs)
-        logging.info(f'{datetime.datetime.now().replace(microsecond=0)} Вызов функции: {name}, Результат: {result}\n')
-        return func(*args, **kwargs)
-
-    return wrap_log
+    return with_logging
 
 
-@with_logging
+@parametrized(input('Введите путь для лог-файла(по умолчанию текущая папка):'))
 def hash_lines(filename):
     try:
         with open(filename, 'rb') as datafile:
