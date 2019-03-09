@@ -12,8 +12,8 @@ def split_max_line(string, max_len):
     return textwrap.fill(string, width=max_len)
 
 
-def print_to_file(string, in_file):
-    with open(in_file, 'w') as file:
+def print_to_file(string):
+    with open('adv_print.txt', 'w', encoding='utf-8') as file:
         file.write(string)
 
 
@@ -24,22 +24,24 @@ def adv_print(*args, **kwargs):
     max_line = kwargs.get('max_line', 0)
     in_file = kwargs.get('in_file', '')
     file = kwargs.get('file', '')
-    string = sep.join([str(arg) for arg in args]) + end
-
+    string = start + sep.join([str(arg) for arg in args]) + end
+    print(string)
     if max_line:
         string = split_max_line(string, max_line)
     if file:
-        print(start, string, sep='\n', file=file)
+        print(string, file=file)
     else:
-        print(start, string, sep='\n')
+        print(string)
     if in_file:
-        print_to_file(string, in_file)
+        print_to_file(f"{start}{string}")
 
 
 if __name__ == '__main__':
-    a = 234233333333334444444444444444444333333333333333333333333333333333333333333333333333333333333333333333333333333
-    b = ['asd\n', '23423,', 'sdfsd']
-    c = {'g': 'sdfsdfsd', 'k': '34534'}
+    a = [i for i in range(120)]
+    b = ['asjkgjkgd', ('tuple', 123456789), 'sdfgdfsd']
+    c = {'Ключ1': 'Значение', 'Ключ2': 123456789}
 
-    adv_print(a, *b, c, max_line=60, sep='', start='sdf', end='!!!!', in_file=True)
+    print(a, *b, c, sep='|Разделитель|', end='Конец вывода(print)')
 
+    adv_print(a, *b, c, max_line=60, start='Начало вывода adv_print', sep='|Разделитель|',
+              end='Конец вывода adv_print', in_file=True)
