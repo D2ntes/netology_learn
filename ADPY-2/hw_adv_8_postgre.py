@@ -35,8 +35,8 @@
 import psycopg2 as pg
 
 DB_NAME = 'student_db'
-USER = 'postgres'
-PASSWORD = 'Odergies1'
+USER = 'test'
+PASSWORD = 'test'
 
 
 
