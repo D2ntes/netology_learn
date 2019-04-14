@@ -35,12 +35,11 @@
 import psycopg2 as pg
 
 DB_NAME = 'student_db'
-USER = 'test'
-PASSWORD = 'test'
+USER = 'postgres'
+PASSWORD = 'Odergies1'
 
 
-
-def create_db(): # создает таблицы
+def create_db():  # создает таблицы
     with pg.connect(dbname=DB_NAME, user=USER, password=PASSWORD) as conn:
         with conn.cursor() as cur:
             cur.execute("""CREATE TABLE IF NOT EXISTS student (
@@ -84,7 +83,9 @@ def add_students(course_id, students):  # создает студентов и �
                 return message
 
             for student in students:
-                id_last_student = add_student(student)
+                cur.execute("""insert into student (name, gpa, birth) values (%s, %s, %s) RETURNING id;""",
+                            (student['name'], student['gpa'], student['birth']))
+                id_last_student = cur.fetchone()
                 cur.execute("""insert into student_courses (student_id, course_id) values (%s, %s)""",
                             (id_last_student, course_id))
 
@@ -103,6 +104,6 @@ if __name__ == "__main__":
     create_db()
 
     add_student({'name': 'Nikita', 'gpa': 5, 'birth': '1967-06-03'})
-    add_students(1, [{'name': 'Evgen', 'gpa': 7, 'birth': '1995-03-07'}])
-    print(get_student(1))
+    add_students(1, [{'name': 'Nikita', 'gpa': 8, 'birth': '1995-03-07'}])
+    print(get_student(3))
     print(get_students(1))
