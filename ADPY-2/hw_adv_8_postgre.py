@@ -61,9 +61,7 @@ def create_db():  # создает таблицы
 def add_student(student):  # просто создает студента
     with pg.connect(dbname=DB_NAME, user=USER, password=PASSWORD) as conn:
         with conn.cursor() as cur:
-            cur.execute("""insert into student (name, gpa, birth) values (%s, %s, %s) RETURNING id;""",
-                        (student['name'], student['gpa'], student['birth']))
-            return cur.fetchone()
+            return add_student_execute(student, cur)
 
 
 def get_student(student_id):  # возвращает студента по id
@@ -83,9 +81,7 @@ def add_students(course_id, students):  # создает студентов и �
                 return message
 
             for student in students:
-                cur.execute("""insert into student (name, gpa, birth) values (%s, %s, %s) RETURNING id;""",
-                            (student['name'], student['gpa'], student['birth']))
-                id_last_student = cur.fetchone()
+                id_last_student = add_student_execute(student, cur)
                 cur.execute("""insert into student_courses (student_id, course_id) values (%s, %s)""",
                             (id_last_student, course_id))
 
@@ -100,10 +96,16 @@ def get_students(course_id):  # возвращает студентов опре
             return cur.fetchall()
 
 
+def add_student_execute(student, cur):
+    cur.execute("""insert into student (name, gpa, birth) values (%s, %s, %s) RETURNING id;""",
+                (student['name'], student['gpa'], student['birth']))
+    return cur.fetchone()
+
+
 if __name__ == "__main__":
     create_db()
 
-    add_student({'name': 'Nikita', 'gpa': 5, 'birth': '1967-06-03'})
-    add_students(1, [{'name': 'Nikita', 'gpa': 8, 'birth': '1995-03-07'}])
+    add_student({'name': 'Nikita3', 'gpa': 5, 'birth': '1967-06-03'})
+    add_students(2, [{'name': 'Nikita4', 'gpa': 8, 'birth': '1995-03-07'}])
     print(get_student(3))
-    print(get_students(1))
+    print(get_students(2))
