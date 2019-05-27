@@ -74,5 +74,5 @@ def get_id_user(number_user):
     return user_id
 
 
-TOKEN = '711361be7243d44cc38ea064551d1e7ace66ec2a155cc11b1b231e684fb676182e73bcc37865c19f1d2c7'
+TOKEN = 'c81d24660f6c2b52dab84a3e4362a05a538e56ed139a0c2209877c0b41f0c42656df5602808ab06911e26'
 mutual_friends(TOKEN)
