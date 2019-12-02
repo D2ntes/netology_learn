@@ -46,8 +46,8 @@ def prepare_result(top_matches):
 def print_result(prepared_result):
     position = 1
     for match in prepared_result:
-        print(f'{position}. Ссылка на профиль: {match["url"]}')
-        for photo in match['photos'].values():
+        print(f'{position}. Ссылка на профиль: {match["ссылка"]}')
+        for photo in match['фото'].values():
             print(f'Фото: {photo}')
         position += 1
 
