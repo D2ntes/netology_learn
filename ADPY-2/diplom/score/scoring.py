@@ -63,7 +63,7 @@ def check_common_books(user, users):
 
 def score_users(user, users):
     print('Проверка общих друзей')
-    # check_mutual_friends(users)
+    check_mutual_friends(users)
     print('Проверка общих групп')
     check_mutual_groups(user, users)
     print('Проверка общих интересов, музыки, фильмов, телепередач, книг')

@@ -5,4 +5,7 @@ VERSION = '5.92'
 TOKEN =''
 FIELDS = 'sex, city, country, common_count, interests, music, movies, tv, books'
 
+# параметры JSON
+NAME_FILE_JSON = 'result_file.json'
+
 

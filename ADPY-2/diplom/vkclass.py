@@ -131,51 +131,53 @@ class VKUser:
     def search_users(self, sex, age_from, age_to, offset):
         method_url = f'{API_URL}/users.search'
         params_users_search = dict(access_token=TOKEN, v=VERSION, fields=FIELDS,
-                                   count=100, city=self.city, country=self.country, sex=sex,
-                                   age_from=age_from, age_to=age_to, has_photo=1, sort=0, offset=offset)
+                                   count=1000, city=self.city, country=self.country, sex=sex,
+                                   age_from=age_from, age_to=age_to, has_photo=1,
+                                   status=6, sort=0, offset=offset, is_closed=0, can_access_closed=1)
         request = requests.get(method_url, params_users_search).json()
         try:
             result = request['response']['items']
             result_instances = list()
             for item in result:
-                instance = VKUser(item['id'])
-                result_instances.append(instance)
-                try:
-                    instance.sex = item['sex']
-                except KeyError:
-                    pass
-                try:
-                    instance.city = item['city']['id']
-                except KeyError:
-                    pass
-                try:
-                    instance.country = item['country']['id']
-                except KeyError:
-                    pass
-                try:
-                    instance.common_count = item['common_count']
-                except KeyError:
-                    pass
-                try:
-                    instance.interests = item['interests']
-                except KeyError:
-                    pass
-                try:
-                    instance.music = item['music']
-                except KeyError:
-                    pass
-                try:
-                    instance.tv = item['tv']
-                except KeyError:
-                    pass
-                try:
-                    instance.books = item['books']
-                except KeyError:
-                    pass
-                try:
-                    instance.movies = item['movies']
-                except KeyError:
-                    pass
+                if not item['is_closed'] or item['can_access_closed']:
+                    instance = VKUser(item['id'])
+                    result_instances.append(instance)
+                    try:
+                        instance.sex = item['sex']
+                    except KeyError:
+                        pass
+                    try:
+                        instance.city = item['city']['id']
+                    except KeyError:
+                        pass
+                    try:
+                        instance.country = item['country']['id']
+                    except KeyError:
+                        pass
+                    try:
+                        instance.common_count = item['common_count']
+                    except KeyError:
+                        pass
+                    try:
+                        instance.interests = item['interests']
+                    except KeyError:
+                        pass
+                    try:
+                        instance.music = item['music']
+                    except KeyError:
+                        pass
+                    try:
+                        instance.tv = item['tv']
+                    except KeyError:
+                        pass
+                    try:
+                        instance.books = item['books']
+                    except KeyError:
+                        pass
+                    try:
+                        instance.movies = item['movies']
+                    except KeyError:
+                        pass
         except KeyError:
             result = request['error']
             result_instances = None

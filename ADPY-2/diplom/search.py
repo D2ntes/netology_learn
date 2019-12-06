@@ -3,6 +3,7 @@ from score.scoring import score_users
 from utils.params import ask_params, update_params
 from db.writer import writer
 from db.offset import get_offset, update_offset
+from utils.json_data import save_result_to_json
 import time
 
 
@@ -72,7 +73,12 @@ def get_search_result():
         print('Получение лучших совпадений')
         top_matches = get_top_matches(search_results)
         print('Подготовка результатов')
-        result = prepare_result(top_matches)
-        print('Сохранение в базу данных')
-        print('Результат:')
-        print_result(result)
+        try:
+            result = prepare_result(top_matches)
+            print('Сохранение в базу данных')
+            print('Сохранение данных в json-файл')
+            save_result_to_json(result)
+            print('Результат:')
+            print_result(result)
+        except TypeError:
+            print('К сожалению, совпадений нет')
