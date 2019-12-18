@@ -22,7 +22,6 @@ class FileList(TemplateView):
                 'ctime': dt.utcfromtimestamp(file_info.st_ctime),
                 'mtime': dt.utcfromtimestamp(file_info.st_mtime)
             }
-            print(file_data['ctime'], file_data['mtime'])
             if date:
                 if file_data['ctime'].date() == dt.strptime(date, '%Y-%m-%d').date():
                     result['files'].append(file_data)
