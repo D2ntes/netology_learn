@@ -1,5 +1,4 @@
 from collections import Counter
-
 from django.shortcuts import render
 
 # Для отладки механизма ab-тестирования используйте эти счетчики
