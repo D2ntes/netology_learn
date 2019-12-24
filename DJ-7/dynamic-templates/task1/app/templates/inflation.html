@@ -1,3 +1,5 @@
+{% load bgcolor %}
+
 <!DOCTYPE html>{% load static %}
 <html>
   <head>
@@ -13,13 +15,37 @@
   </head>
 
   <body>
+
     {% block content %}
       <div class="row">
         <h1 class="col s12">Инфляция в России</h1>
         <div class="col s12 m8">
-        
-        <!-- Ваша логика -->
-
+          <table>
+            <thead>
+              <tr>
+                {% for cell in header %}
+                  {% if forloop.last %}
+                  <th bgcolor='#D3D3D3'> {{ cell }} </th>
+                  {% else %}
+                  <th> {{ cell }} </th>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            </thead>
+            {% for row in data %}
+            <tr>
+              {% for cell in row %}
+                {% if forloop.first %}
+                <td> {{ cell }} </td>
+                {% elif forloop.last %}
+                <td bgcolor='#D3D3D3'> {{ cell }} </td>
+                {% else %}
+                <td bgcolor={{cell|bgcolor}}> {{ cell }} </td>
+                {% endif %}
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </table>
         </div>
       </div>
     {% endblock %}
