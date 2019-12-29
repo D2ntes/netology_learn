@@ -6,7 +6,9 @@
     <div class="row">
       <div class="col s12">
         <h1 class="col s12">Каталог компьютеров Apple</h1>
-        {% include "app/contents.html" %}
+          {% for item in items %}
+            {% include "app/contents.html" %}
+          {% endfor %}
       </div>
     </div>
 {% endblock %}
