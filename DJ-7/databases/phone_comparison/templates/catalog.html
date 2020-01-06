@@ -3,9 +3,49 @@
 
 {% block title %}Каталог{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="header">
-            <h1>Сравнение телефонов</h1>
+<div class="container">
+    <div class="header">
+        <h1>Сравнение телефонов</h1>
+        <div class="content">
+            <table cellspacing="15" cellpadding="15">
+                <tr>
+                    <td>Модель:</td>
+                    {% for phone in phones %}
+                    <td><b>{{phone.name}}</b></td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Цена:</td>
+                    {% for phone in phones %}
+                    <td><b>{{phone.price}}</b></td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Релиз:</td>
+                    {% for phone in phones %}
+                    <td><b>{{phone.release_date}}</b></td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>LTE:</td>
+                    {% for phone in phones %}
+                    <td><b>
+                        {% if phone.lte_exists == True %}
+                        Есть
+                        {% else %}
+                        Нет
+                        {% endif %}
+                    </b></td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td></td>
+                    {% for phone in phones %}
+                    <td><img src={{phone.image}} height="250px"></td>
+                    {% endfor %}
+                </tr>
+            </table>
         </div>
     </div>
+</div>
 {% endblock %}
