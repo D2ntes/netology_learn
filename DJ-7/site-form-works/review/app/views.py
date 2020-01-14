@@ -1,33 +1,43 @@
-from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import reverse
-
+from django.shortcuts import redirect, render
+from django.views.generic import ListView, DetailView
 from .models import Product, Review
 from .forms import ReviewForm
 
 
-def product_list_view(request):
-    template = 'app/product_list.html'
-    products = Product.objects.all()
-
-    context = {
-        'product_list': products,
-    }
-
-    return render(request, template, context)
+class ProductsList(ListView):
+    model = Product
+    context_object_name = 'product_list'
 
 
-def product_view(request, pk):
-    template = 'app/product_detail.html'
-    product = get_object_or_404(Product, id=pk)
+class ProductView(DetailView):
+    model = Review
 
-    form = ReviewForm
-    if request.method == 'POST':
-        # логика для добавления отзыва
-        pass
+    def get(self, request, *args, **kwargs):
+        product = Product.objects.get(id=kwargs['pk'])
+        reviews = Review.objects.filter(product=product)
+        context = dict()
+        context['product'] = product
+        reviewed_products = request.session.get('reviewed_products', [])
+        if reviews:
+            context['reviews'] = reviews
+        if not reviewed_products:
+            request.session['reviewed_products'] = list()
+        if product.id not in reviewed_products:
+            context['form'] = ReviewForm()
+        else:
+            context['review_exists'] = True
+        return render(request, 'app/product_detail.html', context)
 
-    context = {
-        'form': form,
-        'product': product
-    }
-
-    return render(request, template, context)
+    def post(self, request, **kwargs):
+        product = kwargs['pk']
+        request.session.modified = True
+        reviewed_products = request.session.get('reviewed_products', [])
+        form = ReviewForm(
+            {'text': request.POST['text']}
+        )
+        if form.is_valid():
+            filled_form = form.save(commit=False)
+            filled_form.product_id = product
+            form.save()
+            reviewed_products.append(product)
+            return redirect('product_detail', pk=product)
