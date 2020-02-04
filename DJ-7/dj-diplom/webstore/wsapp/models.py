@@ -4,8 +4,8 @@ from django.utils.timezone import now
 
 
 class Product(models.Model):
-    title_prod = models.CharField(max_length=30, verbose_name='Название', )
-    description_prod = models.CharField(max_length=100, verbose_name='Описание', )
+    title_prod = models.CharField(max_length=64, verbose_name='Название', )
+    description_prod = models.CharField(verbose_name='Описание', max_length=256, )
     amount_prod = models.PositiveIntegerField(verbose_name='Количество', )
     image_prod = models.ImageField(null=True, blank=True, upload_to='static/products/', verbose_name='Изображение',)
     # subtype = models.ForeignKey(Subtype, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Подтип')
@@ -20,10 +20,10 @@ class Product(models.Model):
 
 
 class Article(models.Model):
-    title_art = models.CharField(max_length=64, verbose_name='Название',)
-    description_art = models.CharField(max_length=254, default='', verbose_name='Описание', )
-    published_at = models.DateTimeField(default=now, editable=True, verbose_name='Дата публикации')
-    products = models.ManyToManyField(Product, related_name='articles')
+    title_art = models.CharField(max_length=128, verbose_name='Название',)
+    description_art = models.TextField(max_length=3000, default='', verbose_name='Описание', )
+    published_at = models.DateTimeField(default=now, editable=True, verbose_name='Дата публикации',)
+    products = models.ManyToManyField(Product, related_name='articles',)
 
     class Meta:
         verbose_name = 'Статья'
