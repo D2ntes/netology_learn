@@ -49,10 +49,7 @@ def index(request):
     for article in articles:
         object_article = {'title_art': article.title_art,
                           'description_art': article.description_art,
-                          'products': article.products.all().order_by('-amount_prod').values('id', 'title_prod',
-                                                                                             'description_prod',
-                                                                                             'amount_prod',
-                                                                                             'image_prod')}
+                          'products': article.products.order_by('-amount_prod')}
 
         list_articles.append(object_article)
     context = {
