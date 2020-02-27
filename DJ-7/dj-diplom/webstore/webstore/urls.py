@@ -25,5 +25,5 @@ urlpatterns = [
     # path('login/', views.login, name='login'),
     # path('logout/', views.logout, name='logout'),
     path('product/<int:id_product>/', views.product, name='product'),
-    # path('products/<int:id_type>/<int:id_subtype>/', views.products, name='products'),
+    path('products/', views.products, name='products'),
 ]

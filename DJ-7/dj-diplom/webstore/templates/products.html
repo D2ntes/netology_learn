@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <main role="main">
+        {% for product in list_products %}
+            <div class="jumbotron">
+                <div class="container">
+                    <a href="{% url 'product' product.id %}">
+                        <img src="/{{ product.image_prod }}" width="280">
+                        <h1 class="display-4">{{ product.title_prod }}</h1>
+                        <p>{{ product.description_prod }}</p>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="container">
+            {% if prev_page_url %}<a class="button button-primary" href="{{ prev_page_url }}">◀</a>{% endif %}
+            <a class="button disabled" href="">{{ current_page }}</a>
+            {% if next_page_url %}<a class="button button-primary" href="{{ next_page_url }}">▶</a>{% endif %}
+        </div>
+
+    </main>
+{% endblock %}
+

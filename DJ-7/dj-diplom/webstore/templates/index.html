@@ -4,59 +4,64 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-	<div class="colorlib-loader"></div>
-		<div class="colorlib-intro">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12 text-center">
-						<h2 class="intro">Все началось с простой идеи: продавать качественные, хорошо продуманные продукты</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="colorlib-product">
-			<div class="container-fluid">
-
-				
-				<main role="main">
-				  {% for article in list_articles %}
-				  <div class="jumbotron">
-				    <div class="container">
-				      <h1 class="display-4">{{ article.title_art }}</h1>
-				      <p>{{ article.description_art }}</p>
-				    </div>
-				  </div>
-
-				  <div class="container mb-5">
-				    <!-- Example row of columns -->
-				    <div class="row">
-				    {% for product in article.products %}
-				      <div class="col-md-4">
-
-				        <h2>{{ product.title_prod }}</h2>
-                          <p>{{ product.description_prod }}</p>
-
-                          <a href="{% url 'product' product.id %}">
-                              <img src="/{{ product.image_prod }}" width="280">
-                          </a>
-                          {% if request.user.is_authenticated %}
-                              <form method="POST">
-                                  {% csrf_token %}
-                                  <button type="submit" class="btn btn-secondary" name="product"
-                                          value="{{ product.id }}">Добавить в корзину »
-                                  </button>
-                              </form>
-                          {% endif %}
-				      </div>
-				    {% endfor %}
-				    </div>
-				  </div> <!-- /container -->
-				  {% endfor %}
-				</main>
+    <div class="colorlib-loader"></div>
+    <div class="colorlib-intro">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h2 class="intro">Все началось с простой идеи: продавать качественные, хорошо продуманные
+                        продукты</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="colorlib-product">
+        <div class="container-fluid">
 
 
-			</div>
-		</div>
+            <main role="main">
+                {% for article in list_articles %}
+                    <div class="jumbotron">
+                        <div class="container">
+                            <h1 class="display-4">{{ article.title_art }}</h1>
+                            <section>
+                                тут много текста
+
+                                <p>{{ article.description_art }}</p>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="container mb-5">
+                        <!-- Example row of columns -->
+                        <div class="row">
+                            {% for product in article.products %}
+                                <div class="col-md-4">
+
+                                    <h2>{{ product.title_prod }}</h2>
+                                    <p>{{ product.description_prod }}</p>
+
+                                    <a href="{% url 'product' product.id %}">
+                                        <img src="/{{ product.image_prod }}" width="280">
+                                    </a>
+                                    {% if request.user.is_authenticated %}
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-secondary" name="product"
+                                                    value="{{ product.id }}">Добавить в корзину »
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div> <!-- /container -->
+                {% endfor %}
+            </main>
+
+
+        </div>
+    </div>
 {% endblock %}
 {#			</div>#}
 {#		</div>#}

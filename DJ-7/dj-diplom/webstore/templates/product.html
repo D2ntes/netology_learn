@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+
+
 {% block content %}
     <main role="main">
         <div class="jumbotron">
@@ -21,5 +23,29 @@
                 </button>
             </form>
         {% endif %}
+
+        {% if list_articles %}
+            <div class="container">
+            <h2>Articles</h2>
+            </div>
+            {% for article in list_articles %}
+                <div class="jumbotron">
+                    <div class="container">
+                        <h1>{{ article.title_art }}"</h1>
+                        <a href="javascript:void(0)" onclick="showHide('block_id')">Show/hide article</a><br/><br/>
+                        <div id="block_id" style="display: none;">
+                            <p>{{ article.description_art }}</p>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
     </main>
+
+
+
+
 {% endblock %}
+
+
