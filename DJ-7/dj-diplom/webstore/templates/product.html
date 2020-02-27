@@ -12,21 +12,22 @@
                 <a href="{% url 'product' product.id %}" class="justify-content-center">
                     <img src="/{{ product.image_prod }}" width="200">
                 </a>
+
+            {% if request.user.is_authenticated %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary" name="product" value="{{ product.id }}">ADD TO CART »
+                    </button>
+                </form>
+            {% endif %}
             </div>
         </div>
 
-        {% if request.user.is_authenticated %}
-            <form method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary" name="product" value="{{ product.id }}">Добавить в
-                    корзину »
-                </button>
-            </form>
-        {% endif %}
+
 
         {% if list_articles %}
             <div class="container">
-            <h2>Articles</h2>
+                <h2>Articles</h2>
             </div>
             {% for article in list_articles %}
                 <div class="jumbotron">
