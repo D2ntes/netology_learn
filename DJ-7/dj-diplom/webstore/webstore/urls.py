@@ -16,14 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from wsapp import views
+from auth.views import NewLoginView, NewLogoutView, SignupView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     # path('cart/', views.cart, name='cart'),
-    # path('login/', views.login, name='login'),
-    # path('logout/', views.logout, name='logout'),
     path('product/<int:id_product>/', views.product, name='product'),
     path('products/', views.products, name='products'),
+    path('signup/', SignupView.as_view(), name='signup'),
+    path('login/', NewLoginView.as_view(), name='login'),
+    path('logout/', NewLogoutView.as_view(), name='logout'),
 ]
+

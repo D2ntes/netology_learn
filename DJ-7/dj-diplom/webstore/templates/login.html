@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}LogIn{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-xl-3">
+            <form method="post" action="{% url 'login' %}" class="search-wrap">
+                <div class="form-group">
+
+                    {% csrf_token %}
+                    <table class="table">
+                        <tr>
+                            <td>{{ form.username.label_tag }}</td>
+                            <td>{{ form.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.password.label_tag }}</td>
+                            <td>{{ form.password }}</td>
+                        </tr>
+                    </table>
+                    <div class="row justify-content-center">
+                    <input type="submit" class="btn btn-primary" value="LogIn"/>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

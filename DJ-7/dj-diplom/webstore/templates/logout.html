@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}LogOut{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="row justify-content-center">
+                <p>Thanks for spending some quality time with the Web site today.</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <ul>
+                    <li><a class="list-group-item" href="{% url 'index' %}">Home</a></li>
+                    <li><a class="list-group-item" href="{% url 'signup' %}">SingUp</a></li>
+                    <li><a class="list-group-item" href="{% url 'login' %}">LogIn</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

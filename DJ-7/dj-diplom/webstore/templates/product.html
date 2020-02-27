@@ -9,8 +9,8 @@
                 <h1 class="display-4">{{ article.title_art }}</h1>
                 <h2>{{ product.title_prod }}</h2>
                 <p>{{ product.description_prod }}</p>
-                <a href="{% url 'product' product.id %}">
-                    <img src="/{{ product.image_prod }}" width="280">
+                <a href="{% url 'product' product.id %}" class="justify-content-center">
+                    <img src="/{{ product.image_prod }}" width="200">
                 </a>
             </div>
         </div>

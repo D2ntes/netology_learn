@@ -6,8 +6,8 @@
             <div class="jumbotron">
                 <div class="container">
                     <a href="{% url 'product' product.id %}">
-                        <img src="/{{ product.image_prod }}" width="280">
-                        <h1 class="display-4">{{ product.title_prod }}</h1>
+                        <img src="/{{ product.image_prod }}" width="200">
+                        <h1 class="lead">{{ product.title_prod }}</h1>
                         <p>{{ product.description_prod }}</p>
                     </a>
                 </div>
