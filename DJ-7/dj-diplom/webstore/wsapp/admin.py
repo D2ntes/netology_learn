@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Product, Article, Vendor, Category#,  DetailOrder, Order, Review
+from .models import Product, Article, Vendor, Category  # , DetailOrder, Order
+from .forms import Review
 
 
 @admin.register(Product)
@@ -14,6 +15,7 @@ class ArticleHasProductsInline(admin.TabularInline):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
+    form = Review
     list_display = ('title_art', 'description_art', 'published_at')
     inlines = [
         ArticleHasProductsInline,
