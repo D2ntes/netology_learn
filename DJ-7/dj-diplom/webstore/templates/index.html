@@ -3,16 +3,13 @@
 
 {% block title %}Главная{% endblock %}
 
-{% block nav %}
-{% include 'nav.html'%}
-{% endblock %}
 {% block content %}
 	<div class="colorlib-loader"></div>
 		<div class="colorlib-intro">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h2 class="intro">Все началось с простой идеи: создать качественные, хорошо продуманные продукты</h2>
+						<h2 class="intro">Все началось с простой идеи: продавать качественные, хорошо продуманные продукты</h2>
 					</div>
 				</div>
 			</div>
@@ -35,7 +32,21 @@
 				    <div class="row">
 				    {% for product in article.products %}
 				      <div class="col-md-4">
-				        {% include 'product.html' with product=product%}
+
+				        <h2>{{ product.title_prod }}</h2>
+                          <p>{{ product.description_prod }}</p>
+
+                          <a href="{% url 'product' product.id %}">
+                              <img src="/{{ product.image_prod }}" width="280">
+                          </a>
+                          {% if request.user.is_authenticated %}
+                              <form method="POST">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn btn-secondary" name="product"
+                                          value="{{ product.id }}">Добавить в корзину »
+                                  </button>
+                              </form>
+                          {% endif %}
 				      </div>
 				    {% endfor %}
 				    </div>
@@ -43,10 +54,12 @@
 				  {% endfor %}
 				</main>
 
-				
 
 			</div>
 		</div>
+{% endblock %}
+{#			</div>#}
+{#		</div>#}
 
 {#		<div class="colorlib-product">#}
 {#			<div class="container">#}
@@ -54,12 +67,12 @@
 {##}
 {#			</div>#}
 {#		</div>#}
+{##}
+{##}
+{#		#}
+{##}
+{#	<div class="gototop js-top">#}
+{#		<a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>#}
+{#	</div>#}
 
-
-		
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
-	</div>
-{% endblock %}	
 

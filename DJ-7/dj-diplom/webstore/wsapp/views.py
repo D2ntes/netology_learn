@@ -34,15 +34,14 @@ def index(request):
     #         add_to_cart(person, id_product)
     template = 'index.html'
     list_articles = []
-    articles = Article.objects.all().prefetch_related('products').order_by('-published_at')  # .values()
+    articles = Article.objects.all().prefetch_related('products').order_by('-published_at')
     for article in articles:
-        object_article = {}
-        object_article['title_art'] = article.title_art
-        object_article['description_art'] = article.description_art
-
-        object_article['products'] = article.products.all().order_by('-amount_prod').values('id', 'title_prod',
-                                                                                          'description_prod',
-                                                                                          'amount_prod', 'image_prod')
+        object_article = {'title_art': article.title_art,
+                          'description_art': article.description_art,
+                          'products': article.products.all().order_by('-amount_prod').values('id', 'title_prod',
+                                                                                             'description_prod',
+                                                                                             'amount_prod',
+                                                                                             'image_prod')}
 
         list_articles.append(object_article)
     context = {
@@ -51,3 +50,4 @@ def index(request):
     }
 
     return render(request, template, context)
+

@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Product, Article#, Type, Subtype, Article,  DetailOrder, Order, Review
+from .models import Product, Article, Vendor, Category#,  DetailOrder, Order, Review
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('title_prod', 'description_prod', 'amount_prod')#, 'type', 'subtype')
+    list_display = ('title_prod', 'description_prod', 'amount_prod', 'category', 'vendor')
 
 
 class ArticleHasProductsInline(admin.TabularInline):
@@ -20,18 +21,15 @@ class ArticleAdmin(admin.ModelAdmin):
     exclude = ('products',)
 
 
+@admin.register(Vendor)
+class VendorAdmin(admin.ModelAdmin):
+    extra = 1
 
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('title_category', 'get_vendors')
 
-# @admin.register(Type)
-# class TypeAdmin(admin.ModelAdmin):
-#     extra = 1
-#
-#
-# @admin.register(Subtype)
-# class SubtypeAdmin(admin.ModelAdmin):
-#     list_display = ('title_subt', 'type')
-#
 #
 
 #
