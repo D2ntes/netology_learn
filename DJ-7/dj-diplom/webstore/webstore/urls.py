@@ -28,5 +28,6 @@ urlpatterns = [
     path('signup/', SignupView.as_view(), name='signup'),
     path('login/', NewLoginView.as_view(), name='login'),
     path('logout/', NewLogoutView.as_view(), name='logout'),
+    path('cart/', views.cart, name='cart'),
 ]
 

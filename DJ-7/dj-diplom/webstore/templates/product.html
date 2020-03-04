@@ -12,7 +12,7 @@
                 <a href="{% url 'product' product.id %}" class="justify-content-center">
                     <img src="/{{ product.image_prod }}" width="200">
                 </a>
-
+            <p>
             {% if request.user.is_authenticated %}
                 <form method="POST">
                     {% csrf_token %}
@@ -20,6 +20,7 @@
                     </button>
                 </form>
             {% endif %}
+            </p>
             </div>
         </div>
 
