@@ -1,6 +1,7 @@
 {% load static %}
 
 <nav class="colorlib-nav" role="navigation">
+
     <div class="top-menu">
         <div class="container">
             <div class="row">
@@ -38,22 +39,23 @@
                 <div class="col-sm-12 text-left menu-1">
                     <ul>
                         <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                        {#                        <li class="has-dropdown">#}
+{#                                                <li class="has-dropdown">#}
 
                         <li><a href="{% url 'products' %}">Products</a>
-                            {#                            <ul class="dropdown">#}
-                            {#                                <li><a href="{% url 'index' %}">Product Detail</a></li>#}
-                            {#                                <li><a href="cart.html">Shopping Cart</a></li>#}
-                            {#                                <li><a href="checkout.html">Checkout</a></li>#}
-                            {#                                <li><a href="order-complete.html">Order Complete</a></li>#}
-                            {#                                <li><a href="add-to-wishlist.html">Wishlist</a></li>#}
-                            {#                            </ul>#}
+{#                                                        <ul class="dropdown">#}
+{#                                                            <li><a href="{% url 'index' %}">Product Detail</a></li>#}
+{#                                                            <li><a href="cart.html">Shopping Cart</a></li>#}
+{#                                                            <li><a href="checkout.html">Checkout</a></li>#}
+{#                                                            <li><a href="order-complete.html">Order Complete</a></li>#}
+{#                                                            <li><a href="add-to-wishlist.html">Wishlist</a></li>#}
+{##}
+{#                                                        </ul>#}
                         </li>
                         <li><a href="about.html">About</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="contact.html">Contact</a></li>
                             <li class="cart"><a href="{% url 'cart' %}"><i class="icon-shopping-cart"></i>Cart
-                                [{{ count }}]</a></li>
+                                [{{ in_cart }}]</a></li>
                         {% endif %}
                     </ul>
                 </div>

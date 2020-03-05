@@ -62,6 +62,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wsapp.context_processors.category',
+                'wsapp.context_processors.nav_cart',
             ],
         },
     },
@@ -98,6 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LOGIN_REDIRECT_URL = '/'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

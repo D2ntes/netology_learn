@@ -4,15 +4,15 @@ from .models import Product, Article, Order, DetailOrder
 from django.core.paginator import Paginator
 
 
-def nav_cart(request):
-    if request.user.is_authenticated:
-        person = auth.get_user(request)
-        products_in_cart = DetailOrder.objects.filter(person=person, order__isnull=True).prefetch_related(
-            'product').count()
-    else:
-        products_in_cart = ''
-
-    return products_in_cart
+# def nav_cart(request):
+#     if request.user.is_authenticated:
+#         person = auth.get_user(request)
+#         products_in_cart = DetailOrder.objects.filter(person=person, order__isnull=True).prefetch_related(
+#             'product').count()
+#     else:
+#         products_in_cart = ''
+#
+#     return products_in_cart
 
 
 def product(request, id_product):
@@ -41,7 +41,6 @@ def product(request, id_product):
     context = {
         'product': prod,
         'list_articles': list_articles,
-        'count': nav_cart(request),
         # 'reviews': reviews,
     }
     return render(request, template, context)
@@ -64,7 +63,7 @@ def index(request):
 
         list_articles.append(object_article)
     context = {'list_articles': list_articles,
-               'count': nav_cart(request),}
+               }
     return render(request, template, context)
 
 
@@ -105,7 +104,6 @@ def products(request):
         'current_page': current_page,
         'prev_page_url': prev_page_url,
         'next_page_url': next_page_url,
-        'count': nav_cart(request)
     })
 
 
@@ -122,7 +120,6 @@ def cart(request):
 
     context = {
         'products_in_cart': products_in_cart,
-        'count': nav_cart(request),
     }
     return render(request, template, context)
 

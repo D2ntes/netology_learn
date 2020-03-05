@@ -20,9 +20,9 @@ class Product(models.Model):
 
 
 class Article(models.Model):
-    title_art = models.CharField(max_length=128, verbose_name='Название',)
-    description_art = models.TextField(max_length=3000, default='', verbose_name='Описание', )
-    published_at = models.DateTimeField(default=now, editable=True, verbose_name='Дата публикации',)
+    title_art = models.CharField(max_length=128, verbose_name='Name',)
+    description_art = models.TextField(max_length=3000, default='', verbose_name='Description', )
+    published_at = models.DateTimeField(default=now, editable=True, verbose_name='Date published',)
     products = models.ManyToManyField('Product', related_name='articles',)
 
     class Meta:
@@ -41,8 +41,8 @@ class Category(models.Model):
         return ",".join([str(p) for p in self.vendor.all()])
 
     class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.title_category
