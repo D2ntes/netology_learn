@@ -14,5 +14,4 @@ def nav_cart(request):
     else:
         products_in_cart_cp = 0
 
-    return {'in_cart':products_in_cart_cp}
-
+    return {'in_cart': products_in_cart_cp}
