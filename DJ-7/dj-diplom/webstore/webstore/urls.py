@@ -22,7 +22,6 @@ from auth.views import NewLoginView, NewLogoutView, SignupView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    # path('cart/', views.cart, name='cart'),
     path('product/<int:id_product>/', views.product, name='product'),
     path('products/', views.products, name='products'),
     path('signup/', SignupView.as_view(), name='signup'),

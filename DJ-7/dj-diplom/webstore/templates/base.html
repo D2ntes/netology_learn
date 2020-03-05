@@ -40,24 +40,17 @@
 
     <title>{% block title %}WebStore{% endblock %}</title>
     <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" media="screen,projection"/>
-    {#      <link rel="stylesheet" href="{% static '/js/main.css' %}" media="screen,projection"/>#}
 
     <script type="text/javascript">
-    /**
-     * Функция Скрывает/Показывает блок
-     * @author ox2.ru дизайн студия
-     **/
     function showHide(element_id) {
-        //Если элемент с id-шником element_id существует
         if (document.getElementById(element_id)) {
-            //Записываем ссылку на элемент в переменную obj
             var obj = document.getElementById(element_id);
-            //Если css-свойство display не block, то:
+
             if (obj.style.display != "block") {
-                obj.style.display = "block"; //Показываем элемент
-            } else obj.style.display = "none"; //Скрываем элемент
+                obj.style.display = "block";
+            } else obj.style.display = "none";
         }
-        //Если элемент с id-шником element_id не найден, то выводим сообщение
+
         else alert("Элемент с id: " + element_id + " не найден!");
     }
     </script>
@@ -71,7 +64,8 @@
     {% include 'nav.html' %}
 {% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+{% endblock %}
 
 {% block footer %}
     {% include 'footer.html' %}

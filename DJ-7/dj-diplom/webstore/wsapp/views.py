@@ -4,15 +4,25 @@ from .models import Product, Article, Order, DetailOrder
 from django.core.paginator import Paginator
 
 
-def product(request, id_product):
+def nav_cart(request):
+    if request.user.is_authenticated:
+        person = auth.get_user(request)
+        products_in_cart = DetailOrder.objects.filter(person=person, order__isnull=True).prefetch_related(
+            'product').count()
+    else:
+        products_in_cart = ''
 
+    return products_in_cart
+
+
+def product(request, id_product):
     if request.method == 'POST':
         person = auth.get_user(request)
-    #     if 'feedback' in request.POST.keys() and 'mark' in request.POST.keys():
-    #         id_product = request.POST['feedback']
-    #         mark = request.POST['mark']
-    #         description = request.POST['description']
-    #         add_feedback(person, id_product, mark, description)
+        #     if 'feedback' in request.POST.keys() and 'mark' in request.POST.keys():
+        #         id_product = request.POST['feedback']
+        #         mark = request.POST['mark']
+        #         description = request.POST['description']
+        #         add_feedback(person, id_product, mark, description)
         if 'product' in request.POST.keys():
             id_product = request.POST['product']
             add_to_cart(person, id_product)
@@ -30,10 +40,9 @@ def product(request, id_product):
     # reviews = Review.objects.filter(product=prod).select_related('person').values('mark', 'review', 'person__username')
     context = {
         'product': prod,
-        'list_articles': list_articles
-
+        'list_articles': list_articles,
+        'count': nav_cart(request),
         # 'reviews': reviews,
-
     }
     return render(request, template, context)
 
@@ -54,10 +63,8 @@ def index(request):
                           'products': article.products.order_by('-amount_prod')}
 
         list_articles.append(object_article)
-    context = {
-        'list_articles': list_articles,
-    }
-
+    context = {'list_articles': list_articles,
+               'count': nav_cart(request),}
     return render(request, template, context)
 
 
@@ -98,6 +105,7 @@ def products(request):
         'current_page': current_page,
         'prev_page_url': prev_page_url,
         'next_page_url': next_page_url,
+        'count': nav_cart(request)
     })
 
 
@@ -114,7 +122,7 @@ def cart(request):
 
     context = {
         'products_in_cart': products_in_cart,
-        'count': products_in_cart.count(),
+        'count': nav_cart(request),
     }
     return render(request, template, context)
 
@@ -124,5 +132,3 @@ def add_to_cart(person, id_product):
     count_products_in_cart = DetailOrder.objects.filter(product=prod, person=person, order__isnull=True).count()
     if count_products_in_cart == 0:
         DetailOrder.objects.create(amount_do=1, product=prod, person=person)
-
-

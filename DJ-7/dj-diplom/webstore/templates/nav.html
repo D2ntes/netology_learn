@@ -12,22 +12,22 @@
                         <div class="form-group">
                             <ul>
                                 {% if user.is_authenticated %}
-                                <div class="header">
-                                    <b>{{ user.username }}</b>
-                                    <ul>
-                                        <li><a href="{% url 'signup' %}">SingUp</a></li>
-                                        <li><a href="{% url 'logout' %}">LogOut</a></li>
-                                    </ul>
-                                </div>
+                                    <div class="header">
+                                        <b>{{ user.username }}</b>
+                                        <ul>
+                                            <li><a href="{% url 'signup' %}">SingUp</a></li>
+                                            <li><a href="{% url 'logout' %}">LogOut</a></li>
+                                        </ul>
+                                    </div>
                                 {% else %}
-                                <div class="header"  class="h3">
-                                    Hello, <b>quest</b>!<br>
-                                    <ul>
-                                        <li><a href="{% url 'signup' %}">SingUp</a></li>
-                                        <li><a href="{% url 'login' %}">LogIn</a></li>
-                                    </ul>
+                                    <div class="header" class="h3">
+                                        Hello, <b>quest</b>!<br>
+                                        <ul>
+                                            <li><a href="{% url 'signup' %}">SingUp</a></li>
+                                            <li><a href="{% url 'login' %}">LogIn</a></li>
+                                        </ul>
 
-                                </div>
+                                    </div>
                                 {% endif %}
                             </ul>
                         </div>
@@ -38,20 +38,23 @@
                 <div class="col-sm-12 text-left menu-1">
                     <ul>
                         <li class="active"><a href="{% url 'index' %}">Home</a></li>
-{#                        <li class="has-dropdown">#}
+                        {#                        <li class="has-dropdown">#}
 
-                           <li><a href="{% url 'products' %}">Products</a>
-{#                            <ul class="dropdown">#}
-{#                                <li><a href="{% url 'index' %}">Product Detail</a></li>#}
-{#                                <li><a href="cart.html">Shopping Cart</a></li>#}
-{#                                <li><a href="checkout.html">Checkout</a></li>#}
-{#                                <li><a href="order-complete.html">Order Complete</a></li>#}
-{#                                <li><a href="add-to-wishlist.html">Wishlist</a></li>#}
-{#                            </ul>#}
+                        <li><a href="{% url 'products' %}">Products</a>
+                            {#                            <ul class="dropdown">#}
+                            {#                                <li><a href="{% url 'index' %}">Product Detail</a></li>#}
+                            {#                                <li><a href="cart.html">Shopping Cart</a></li>#}
+                            {#                                <li><a href="checkout.html">Checkout</a></li>#}
+                            {#                                <li><a href="order-complete.html">Order Complete</a></li>#}
+                            {#                                <li><a href="add-to-wishlist.html">Wishlist</a></li>#}
+                            {#                            </ul>#}
                         </li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li class="cart"><a href="{% url 'cart' %}"><i class="icon-shopping-cart"></i>Cart</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="contact.html">Contact</a></li>
+                            <li class="cart"><a href="{% url 'cart' %}"><i class="icon-shopping-cart"></i>Cart
+                                [{{ count }}]</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
