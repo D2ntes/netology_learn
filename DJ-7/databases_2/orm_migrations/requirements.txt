@@ -1,2 +1,2 @@
 django-debug-toolbar
-Django==2.1.15
+Django==2.2.10
