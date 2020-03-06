@@ -112,9 +112,6 @@ def cart(request):
             DetailOrder.objects.filter(person=person, order__isnull=True).delete()
             # DetailOrder.objects.create(person=person, order__isnull=False)
 
-
-
-
     products_in_cart = DetailOrder.objects.filter(person=person, order__isnull=True).prefetch_related('product').values(
         'amount_do', 'product__id', 'product__title_prod', 'product__description_prod', 'product__amount_prod',
         'product__image_prod')
@@ -142,6 +139,14 @@ def add_to_cart(person, id_product):
 
 
 def category(request, id_category):
+    if request.method == 'POST':
+        if 'product' in request.POST.keys():
+
+            id_product = request.POST['product']
+            person = auth.get_user(request)
+            print(request.POST.keys())
+            add_to_cart(person, id_product)
+
     template = 'category.html'
     cat = Category.objects.get(id=id_category)
     products = Product.objects.filter(category=cat.id)
