@@ -5,19 +5,9 @@
 
 {% block content %}
     <div class="colorlib-loader"></div>
-    <div class="colorlib-intro">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 text-center">
-                    <h2 class="intro">Simple idea: sell high-quality, well-thought-out products</h2>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="colorlib-product">
         <div class="container-fluid">
-
-
             <main role="main">
                 {% for article in list_articles %}
                     <div class="jumbotron">
@@ -53,8 +43,6 @@
                     </div> <!-- /container -->
                 {% endfor %}
             </main>
-
-
         </div>
     </div>
 {% endblock %}

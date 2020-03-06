@@ -16,7 +16,8 @@ def nav_cart(request):
     if request.user.is_authenticated:
         person = auth.get_user(request)
 
-        products_in_cart = DetailOrder.objects.filter(person=person, order__isnull=True).annotate(amount_product=Sum('amount_do'))
+        products_in_cart = DetailOrder.objects.filter(person=person, order__isnull=True).annotate(
+            amount_product=Sum('amount_do'))
 
         for product_in_cart in products_in_cart:
             in_cart += product_in_cart.amount_product

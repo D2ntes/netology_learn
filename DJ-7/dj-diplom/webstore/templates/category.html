@@ -19,16 +19,24 @@
             {% for product in list_products %}
                 <div class="jumbotron">
                     <div class="container">
-                    <a href="{% url 'product' product.id_prod %}">
-                        <img src="/{{ product.image_prod }}" width="200">
-                        <h1 class="lead">{{ product.title_prod }}</h1>
-                        <p>{{ product.description_prod }}</p>
-                    </a>
+                        <a href="{% url 'product' product.id_prod %}">
+                            <img src="/{{ product.image_prod }}" width="200">
+                            <h1 class="lead">{{ product.title_prod }}</h1>
+                            <p>{{ product.description_prod }}</p>
 
-
-                        </div>
-
+                        </a>
+                        <p>
+                            {% if user.is_authenticated %}
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-secondary" name="product"
+                                            value="{{ product.id }}">ADD TO CART »
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </p>
                     </div>
+                </div>
                 </div>
             {% endfor %}
         {% endif %}
