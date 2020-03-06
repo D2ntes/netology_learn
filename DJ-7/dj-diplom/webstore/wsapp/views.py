@@ -22,7 +22,8 @@ def product(request, id_product):
     list_articles = []
     for article in articles:
         object_article = {'title_art': article.title_art,
-                          'description_art': article.description_art
+                          'description_art': article.description_art,
+                          'id_art': article.id,
                           }
 
         list_articles.append(object_article)

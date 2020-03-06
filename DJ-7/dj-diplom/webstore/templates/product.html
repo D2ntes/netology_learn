@@ -34,9 +34,9 @@
                 <div class="jumbotron">
                     <div class="container">
                         <h1>{{ article.title_art }}"</h1>
-                        <a href="javascript:void(0)" onclick="showHide('block_id')">Show/hide article</a><br/><br/>
-                        <div id="block_id" style="display: none;">
-                            <p>{{ article.description_art }}</p>
+                        <a href="javascript:void(0)" onclick="showHide('{{ article.id_art }}')">Show/hide article</a><br/><br/>
+                        <div id="{{ article.id_art }}" style="display: none;">
+                            <p>{{ article.description_art | safe }}</p>
                         </div>
 
                     </div>

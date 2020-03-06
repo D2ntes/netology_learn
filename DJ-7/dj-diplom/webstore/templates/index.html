@@ -22,8 +22,9 @@
                         <div class="row">
                             {% for product in article.products %}
                                 <div class="col-md-4">
-
+                                    <a href="{% url 'product' product.id %}">
                                     <h2>{{ product.title_prod }}</h2>
+                                    </a>
                                     <p>{{ product.description_prod }}</p>
 
                                     <a href="{% url 'product' product.id %}">
