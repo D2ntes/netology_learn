@@ -90,7 +90,6 @@ def products(request):
         list_products.append(object_product)
         print(prod.category.id)
 
-
     if request.GET.get('page'):
         page_number = int(request.GET.get('page'))
     else:
@@ -125,9 +124,14 @@ def cart(request):
         'amount_do', 'product__id', 'product__title_prod', 'product__description_prod', 'product__amount_prod',
         'product__image_prod')
 
-    context = {
-        'products_in_cart': products_in_cart,
-    }
+    placed_orders = DetailOrder.objects.filter(person=person, order__isnull=False).prefetch_related('product').values(
+         'product__title_prod', 'product__amount_prod', 'order_id', 'amount_do').order_by('order_id')
+
+    print(placed_orders)
+
+    context = {'products_in_cart': products_in_cart,
+               'placed_orders': placed_orders,
+               }
     return render(request, template, context)
 
 

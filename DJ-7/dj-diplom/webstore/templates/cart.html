@@ -14,7 +14,7 @@
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Your products</span>
 
-                            <span class="badge badge-secondary badge-pill">{{ count }}</span>
+                            <span class="badge badge-secondary badge-pill">{{ in_cart }}</span>
                         </h4>
                         <ul class="list-group mb-md-1">
                             {% for product in products_in_cart %}
@@ -48,5 +48,63 @@
 
 
         </form>
+
+
+        <div class="container mt-3">
+            {% if placed_orders %}
+                <div class="row">
+                    <div class="col-lg-12 col-md-9 col-sm-12 order-md-2 mb-4">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Your placed orders</span>
+
+                        </h4>
+                        <ul class="list-group mb-md-1">
+
+                            {% regroup placed_orders by order_id as order_list %}
+
+
+                            {% for order in order_list %}
+                                <li class="list-group-item d-flex justify-content-between lx-condensed">
+                                    <div>
+                                        <h6>Order#{{ order.grouper }}</h6>
+                                        <ul>
+                                            {% for product in order.list %}
+                                                <li><small class="text-muted">{{ product.product__title_prod }}:  </small>
+                                                    <span class="text-muted">{{ product.amount_do }}</span>
+                                                </li>
+
+
+
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+
+                    {#                    {% for placed_order in placed_orders %}#}
+                    {#                        <li class="list-group-item d-flex justify-content-between lx-condensed">#}
+                    {#                            <div>#}
+                    {#                                <h6>Order#{{ placed_order.order_id }}</h6>#}
+                    {#                                <small class="text-muted">{{ placed_order.product__title_prod }}</small>#}
+                    {#                            </div>#}
+                    {##}
+                    {#                            <span class="text-muted">{{ placed_order.amount_do }}</span>#}
+                    {#                        </li>#}
+                    {#                    {% endfor %}#}
+                    </ul>
+
+
+                </div>
+
+                </div>
+            {% endif %}
+
+
     </div>
 {% endblock %}
