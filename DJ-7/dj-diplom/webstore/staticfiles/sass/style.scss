@@ -284,7 +284,7 @@ h1, h2, h3, h4, h5,
 					background: $brand-black;
 					padding: 20px;
 					@include border-radius(4px);
-					@include transition(.0s);
+					@include transition(0.0s);
 					&:before {
 						bottom: 100%;
 						left: 40px;

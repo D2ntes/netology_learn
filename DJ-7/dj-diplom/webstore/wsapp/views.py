@@ -105,8 +105,15 @@ def cart(request):
     template = 'cart.html'
     person = auth.get_user(request)
     if request.method == 'POST':
-        new_order = Order.objects.create(status='Has been placed')
-        DetailOrder.objects.filter(person=person, order__isnull=True).update(order=new_order)
+        if 'products_to_order' in request.POST.keys():
+            new_order = Order.objects.create(status='Has been placed')
+            DetailOrder.objects.filter(person=person, order__isnull=True).update(order=new_order)
+        elif 'clear_order' in request.POST.keys():
+            DetailOrder.objects.filter(person=person, order__isnull=True).delete()
+            # DetailOrder.objects.create(person=person, order__isnull=False)
+
+
+
 
     products_in_cart = DetailOrder.objects.filter(person=person, order__isnull=True).prefetch_related('product').values(
         'amount_do', 'product__id', 'product__title_prod', 'product__description_prod', 'product__amount_prod',
@@ -123,12 +130,15 @@ def cart(request):
 
 def add_to_cart(person, id_product):
     prod = Product.objects.get(id=id_product)
-    product_in_cart = DetailOrder.objects.filter(product=prod, person=person, order__isnull=True).values()
+
+    product_in_cart = DetailOrder.objects.filter(product_id=id_product, person=person, order__isnull=True).values()
+
+    if product_in_cart.count() == 0:
+        DetailOrder.objects.create(amount_do=0, product=prod, person=person)
+
     count_product_in_cart = product_in_cart[0]['amount_do']
-    if count_product_in_cart == 0:
-        DetailOrder.objects.create(amount_do=1, product=prod, person=person)
-    else:
-        product_in_cart.update(amount_do=count_product_in_cart + 1)
+
+    product_in_cart.update(amount_do=count_product_in_cart + 1)
 
 
 def category(request, id_category):

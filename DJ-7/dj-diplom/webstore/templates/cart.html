@@ -39,6 +39,14 @@
                             class="btn btn-secondary">Order
                     </button>
                 </form>
+                <form class="card p-2" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="clear_order"
+                            class="btn btn-secondary">Clear order
+                    </button>
+                </form>
+
+
             {% else %}
                 <div class="alert alert-dark" role="alert">
                     Your cart's empty!
