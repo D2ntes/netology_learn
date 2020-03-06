@@ -4,17 +4,6 @@ from .models import Product, Article, Order, DetailOrder, Category
 from django.core.paginator import Paginator
 
 
-# def nav_cart(request):
-#     if request.user.is_authenticated:
-#         person = auth.get_user(request)
-#         products_in_cart = DetailOrder.objects.filter(person=person, order__isnull=True).prefetch_related(
-#             'product').count()
-#     else:
-#         products_in_cart = ''
-#
-#     return products_in_cart
-
-
 def product(request, id_product):
     if request.method == 'POST':
         person = auth.get_user(request)
@@ -88,7 +77,6 @@ def products(request):
                           'vendor': prod.vendor,
                           }
         list_products.append(object_product)
-        print(prod.category.id)
 
     if request.GET.get('page'):
         page_number = int(request.GET.get('page'))
@@ -125,9 +113,7 @@ def cart(request):
         'product__image_prod')
 
     placed_orders = DetailOrder.objects.filter(person=person, order__isnull=False).prefetch_related('product').values(
-         'product__title_prod', 'product__amount_prod', 'order_id', 'amount_do').order_by('order_id')
-
-    print(placed_orders)
+        'product__title_prod', 'product__amount_prod', 'order_id', 'amount_do').order_by('order_id')
 
     context = {'products_in_cart': products_in_cart,
                'placed_orders': placed_orders,
@@ -137,10 +123,12 @@ def cart(request):
 
 def add_to_cart(person, id_product):
     prod = Product.objects.get(id=id_product)
-    count_products_in_cart = DetailOrder.objects.filter(product=prod, person=person, order__isnull=True).count()
-    if count_products_in_cart == 0:
+    product_in_cart = DetailOrder.objects.filter(product=prod, person=person, order__isnull=True).values()
+    count_product_in_cart = product_in_cart[0]['amount_do']
+    if count_product_in_cart == 0:
         DetailOrder.objects.create(amount_do=1, product=prod, person=person)
-    # add amount +1
+    else:
+        product_in_cart.update(amount_do=count_product_in_cart + 1)
 
 
 def category(request, id_category):
@@ -161,3 +149,4 @@ def category(request, id_category):
         'list_products': list_products,
     }
     return render(request, template, context)
+
