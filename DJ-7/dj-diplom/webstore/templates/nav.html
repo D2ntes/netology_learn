@@ -39,17 +39,12 @@
                 <div class="col-sm-12 text-left menu-1">
                     <ul>
                         <li class="active"><a href="{% url 'index' %}">Home</a></li>
-{#                                                <li class="has-dropdown">#}
-
-                        <li><a href="{% url 'products' %}">Products</a>
-{#                                                        <ul class="dropdown">#}
-{#                                                            <li><a href="{% url 'index' %}">Product Detail</a></li>#}
-{#                                                            <li><a href="cart.html">Shopping Cart</a></li>#}
-{#                                                            <li><a href="checkout.html">Checkout</a></li>#}
-{#                                                            <li><a href="order-complete.html">Order Complete</a></li>#}
-{#                                                            <li><a href="add-to-wishlist.html">Wishlist</a></li>#}
-{##}
-{#                                                        </ul>#}
+                        <li class="has-dropdown"><a href="{% url 'products' %}">Products</a>
+                            <ul class="dropdown">
+                                {% for category in category_list %}
+                                    <li class="has-dropdown"><a href="{% url 'category' category.id_category %}">{{ category.title_category }}</a></li>
+                                {% endfor %}
+                            </ul>
                         </li>
                         <li><a href="about.html">About</a></li>
                         {% if user.is_authenticated %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
-from .models import Product, Article, Order, DetailOrder
+from .models import Product, Article, Order, DetailOrder, Category
 from django.core.paginator import Paginator
 
 
@@ -76,14 +76,20 @@ def products(request):
     template = 'products.html'
 
     list_products = []
-    prods = Product.objects.all().order_by('-title_prod')
+    prods = Product.objects.all().prefetch_related('category', 'vendor').order_by('-title_prod')
+
     for prod in prods:
         object_product = {'id': prod.id,
                           'title_prod': prod.title_prod,
                           'description_prod': prod.description_prod,
                           'image_prod': prod.image_prod,
+                          'category': prod.category,
+                          'id_category': prod.category.id,
+                          'vendor': prod.vendor,
                           }
         list_products.append(object_product)
+        print(prod.category.id)
+
 
     if request.GET.get('page'):
         page_number = int(request.GET.get('page'))
@@ -99,6 +105,7 @@ def products(request):
         if stops_page.has_previous() else None
     next_page_url = f'?page={stops_page.next_page_number()}' \
         if stops_page.has_next() else None
+
     return render(request, template, context={
         'list_products': stops_page,
         'current_page': current_page,
@@ -129,3 +136,24 @@ def add_to_cart(person, id_product):
     count_products_in_cart = DetailOrder.objects.filter(product=prod, person=person, order__isnull=True).count()
     if count_products_in_cart == 0:
         DetailOrder.objects.create(amount_do=1, product=prod, person=person)
+    # add amount +1
+
+
+def category(request, id_category):
+    template = 'category.html'
+    cat = Category.objects.get(id=id_category)
+    products = Product.objects.filter(category=cat.id)
+
+    list_products = []
+    for product in products:
+        object_product = {'title_prod': product.title_prod,
+                          'image_prod': product.image_prod,
+                          'id_prod': product.id,
+                          }
+        list_products.append(object_product)
+
+    context = {
+        'category': cat,
+        'list_products': list_products,
+    }
+    return render(request, template, context)

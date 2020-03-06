@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Article, Vendor, Category  # , DetailOrder, Order
+from .models import Product, Article, Vendor, Category, DetailOrder, Order
 from .forms import Review
 
 
@@ -32,30 +32,23 @@ class VendorAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title_category', 'get_vendors')
 
-#
 
-#
-#
-
-
+@admin.register(DetailOrder)
+class DetailOrderAdmin(admin.ModelAdmin):
+    list_display = ('product', 'amount_do', 'order', 'person')
 
 
-# @admin.register(DetailOrder)
-# class DetailOrderAdmin(admin.ModelAdmin):
-#     list_display = ('product', 'amount_do', 'order', 'person')
-#
-#
-# class OrderHasDetailsInline(admin.TabularInline):
-#     model = DetailOrder
-#     extra = 0
-#
-#
-# @admin.register(Order)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'status')
-#     inlines = [
-#         OrderHasDetailsInline,
-#     ]
+class OrderHasDetailsInline(admin.TabularInline):
+    model = DetailOrder
+    extra = 0
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'status')
+    inlines = [
+        OrderHasDetailsInline,
+    ]
 #
 #
 # @admin.register(Review)

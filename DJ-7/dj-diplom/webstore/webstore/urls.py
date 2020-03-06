@@ -28,5 +28,7 @@ urlpatterns = [
     path('login/', NewLoginView.as_view(), name='login'),
     path('logout/', NewLogoutView.as_view(), name='logout'),
     path('cart/', views.cart, name='cart'),
+    path('category/<int:id_category>/', views.category, name='category'),
+
 ]
 

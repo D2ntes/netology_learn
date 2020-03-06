@@ -10,6 +10,10 @@
                         <h1 class="lead">{{ product.title_prod }}</h1>
                         <p>{{ product.description_prod }}</p>
                     </a>
+                    <p class="small">
+                        <a href="{% url 'category' product.id_category %}">{{ product.category }}</a> >> {{ product.vendor }}
+                    </p>
+
                     {% if request.user.is_authenticated %}
                         <form method="POST">
                             {% csrf_token %}

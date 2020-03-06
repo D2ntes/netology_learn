@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">{{ category }}</h1>
+                <a href="{% url 'category' category.id %}" class="justify-content-center">
+                </a>
+            </div>
+        </div>
+
+        {% if list_products %}
+            <div class="container">
+                <h2>Products</h2>
+            </div>
+            {% for product in list_products %}
+                <div class="jumbotron">
+                    <div class="container">
+                    <a href="{% url 'product' product.id_prod %}">
+                        <img src="/{{ product.image_prod }}" width="200">
+                        <h1 class="lead">{{ product.title_prod }}</h1>
+                        <p>{{ product.description_prod }}</p>
+                    </a>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </main>
+
+
+
+
+{% endblock %}
+
+

@@ -3,7 +3,11 @@ from django.contrib import auth
 
 
 def category(request):
-    return {"category_list": Category.objects.all()}
+    categories = Category.objects.all()
+    category_list = []
+    for category in categories:
+        category_list.append({'id_category': category.id, 'title_category': category.title_category})
+    return {"category_list": category_list}
 
 
 def nav_cart(request):
