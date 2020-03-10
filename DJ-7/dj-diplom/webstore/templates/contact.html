@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About us{% endblock %}
+
+{% block content %}
+    <div class="colorlib-loader"></div>
+
+    <div class="colorlib-product">
+        <div class="container-fluid">
+            <main role="main">
+                <div class="container mb-5">
+                    <h2>
+                        {{ company.name }}
+                        <h3 class="icon-address-book">
+                            {{ company.address }}
+                        </h3>
+                        <h3 class="icon-phone-call">
+                            {{ company.tel }}
+                        </h3>
+                    </h2>
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+{% endblock %}

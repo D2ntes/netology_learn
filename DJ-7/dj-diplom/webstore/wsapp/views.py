@@ -166,3 +166,29 @@ def category(request, id_category):
     }
     return render(request, template, context)
 
+
+def about(request):
+    template = 'about.html'
+    info = information('name', 'description')
+    context = {'company': info}
+    return render(request, template, context)
+
+
+def contact(request):
+    template = 'contact.html'
+    info = information('name', 'address', 'tel')
+    context = {'company': info}
+    return render(request, template, context)
+
+
+def information(*keys):
+    information_company = {
+        'name': 'WebStore',
+        'address': 'STREET, CITY, COUNTRY 000000',
+        'tel': '+ 1235 2355 98',
+        'description': 'To develop the website of the online store. '
+                       'The client part of the service and the administration '
+                       'interface must be implemented.',
+        }
+
+    return {key: information_company.get(key) for key in keys}
