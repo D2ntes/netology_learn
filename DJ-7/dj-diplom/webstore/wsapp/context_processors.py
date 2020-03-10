@@ -24,14 +24,3 @@ def nav_cart(request):
 
     return {'in_cart': in_cart}
 
-def information():
-    information_company = {
-        'name': 'WebStore',
-        'address': 'STREET, CITY, COUNTRY 000000',
-        'tel': '+ 1235 2355 98',
-        'description': 'To develop the website of the online store. '
-                       'The client part of the service and the administration '
-                       'interface must be implemented.',
-        }
-
-    return information_company
